@@ -42,9 +42,11 @@ public class ServletPost extends HttpServlet {
         
         dados.add(df);
         
-        String url = "??";
+        String url = "/aulas/rotafisica/jsp/dados.jsp";
         
         request.setAttribute("lista", dados);
+        
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     @Override
