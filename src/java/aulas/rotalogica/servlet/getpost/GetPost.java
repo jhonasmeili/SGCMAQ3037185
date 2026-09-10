@@ -89,6 +89,12 @@ public class GetPost extends HttpServlet {
     }
     
     @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        System.out.println("\n\nPOST\n\n");
+        processRequest(request, response);
+    }
+    
+    @Override
     public void destroy(){
         dados.clear();
         dados = null;
