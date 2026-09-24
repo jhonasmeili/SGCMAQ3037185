@@ -66,7 +66,7 @@ public class FrontController extends HttpServlet {
         
     }
     
-    private void doGetUsuario(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+    private void doGetUsuario(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String action = req.getParameter("action");
         
         if((action != null) && (action.equals("delete"))){
@@ -80,7 +80,7 @@ public class FrontController extends HttpServlet {
         req.getRequestDispatcher("/home/app/adm/usuario.jsp").forward(req, resp);
     }
     
-    private void doPostUsuario(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+    private void doPostUsuario(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         
         String action = req.getParameter("action"); // new  || update
         

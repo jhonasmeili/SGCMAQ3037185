@@ -4,31 +4,32 @@
  */
 package model;
 
+import framework.config.AppConfig;
+import framework.dao.DataAccessObject;
+import framework.dao.DataBaseConnections;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
-import framework.config.AppConfig;
-import framework.dao.DataAccessObject;
-import framework.dao.DataBaseConnections;
 
 /**
  *
  * @author aluno
  */
-public class UsuarioDAO extends DataAccessObject<Usuario>{
+public class TipoUsuarioDAO extends DataAccessObject<TipoUsuario>{
 
     @Override
-    public void insert(Usuario t) throws Exception {
+    public void insert(TipoUsuario t) throws Exception {
         Connection connection = DataBaseConnections.getInstance().getConnection();
         
-        String dml = "INSERT INTO usuario (id, nome, senha) values (?, ?, ?)";
+        String dml = "INSERT INTO tipo_usuario (id, modulo_administrativo, modulo_agendamento, modulo_atendimento) values (?, ?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(dml);
         preparedStatement.setInt(1, t.getId());
-        preparedStatement.setString(2, t.getNome());
-        preparedStatement.setString(3, t.getSenha());
+        preparedStatement.setString(2, t.getModuloAdministrativo());
+        preparedStatement.setString(3, t.getModuloAgendamento());
+        preparedStatement.setString(4, t.getModuloAtendimento());
         
         if(AppConfig.getInstance().getConfig("settings", "verbose"). equals("true")){
             System.out.println(preparedStatement);
@@ -41,14 +42,15 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
     }
 
     @Override
-    public void update(Usuario t) throws Exception {
+    public void update(TipoUsuario t) throws Exception {
         Connection connection = DataBaseConnections.getInstance().getConnection();
         
-        String dml = "UPDATE usuario  SET nome = ?, senha = ? WHERE id = ?";
+        String dml = "UPDATE tipo_usuario  SET modulo_administrativo = ?, modulo_agendamento = ?, modulo_atendimento = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(dml);
-        preparedStatement.setInt(3, t.getId());
-        preparedStatement.setString(1, t.getNome());
-        preparedStatement.setString(2, t.getSenha());
+        preparedStatement.setInt(4, t.getId());
+        preparedStatement.setString(1, t.getModuloAdministrativo());
+        preparedStatement.setString(2, t.getModuloAgendamento());
+        preparedStatement.setString(3, t.getModuloAtendimento());
         
         if(AppConfig.getInstance().getConfig("settings", "verbose"). equals("true")){
             System.out.println(preparedStatement);
@@ -61,10 +63,10 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
     }
 
     @Override
-    public void delete(Usuario t) throws Exception {
+    public void delete(TipoUsuario t) throws Exception {
         Connection connection = DataBaseConnections.getInstance().getConnection();
         
-        String dml = "DELETE FROM usuario WHERE id = ?";
+        String dml = "DELETE FROM tipo_usuario WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(dml);
         preparedStatement.setInt(1, t.getId());
         
@@ -79,12 +81,12 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
     }
 
     @Override
-    public Usuario getUnique(Object... values) throws Exception {
-        Usuario resultado = null;
+    public TipoUsuario getUnique(Object... values) throws Exception {
+        TipoUsuario resultado = null;
         
         Connection connection = DataBaseConnections.getInstance().getConnection();
         
-        String dql = "SELECT * FROM usuario WHERE id = ?";
+        String dql = "SELECT * FROM tipo_usuario WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(dql);
         preparedStatement.setInt(1, (int) values[0]);
         if(AppConfig.getInstance().getConfig("settings", "verbose"). equals("true")){
@@ -94,9 +96,10 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
         
         boolean status = resultSet.next();
         if(status == true){
-            resultado = new Usuario((int) resultSet.getObject(1));
-            resultado.setNome((String)resultSet.getObject(2));
-            resultado.setSenha((String)resultSet.getObject(3));
+            resultado = new TipoUsuario((int) resultSet.getObject(1));
+            resultado.setModuloAdministrativo((String)resultSet.getObject(2));
+            resultado.setModuloAgendamento((String)resultSet.getObject(3));
+            resultado.setModuloAtendimento((String)resultSet.getObject(4));
         }
        
         
@@ -107,11 +110,11 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
     }
 
     @Override
-    public ArrayList<Usuario> getAll() throws Exception {
-        ArrayList<Usuario> resultado = new ArrayList<>();
+    public ArrayList<TipoUsuario> getAll() throws Exception {
+        ArrayList<TipoUsuario> resultado = new ArrayList<>();
         Connection connection = DataBaseConnections.getInstance().getConnection();
         
-        String dql = "SELECT * FROM  usuario";
+        String dql = "SELECT * FROM  tipo_usuario";
         Statement statement = connection.createStatement();
         if(AppConfig.getInstance().getConfig("settings", "verbose"). equals("true")){
             System.out.println(statement);
@@ -119,11 +122,12 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
         ResultSet resultSet = statement.executeQuery(dql);
 
         while( resultSet.next() ) {
-            Usuario usuario = new Usuario((int)resultSet.getObject(1));
-            usuario.setNome((String)resultSet.getObject(2));
-            usuario.setSenha((String)resultSet.getObject(3));
+            TipoUsuario tipoUsuario = new TipoUsuario((int)resultSet.getObject(1));
+            tipoUsuario.setModuloAdministrativo((String)resultSet.getObject(2));
+            tipoUsuario.setModuloAgendamento((String)resultSet.getObject(3));
+            tipoUsuario.setModuloAtendimento((String)resultSet.getObject(4));
             
-            resultado.add(usuario);
+            resultado.add(tipoUsuario);
         }
         
         resultSet.close();

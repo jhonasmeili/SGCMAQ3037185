@@ -4,6 +4,10 @@
  */
 package model;
 
+import framework.util.Hash;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 /**
  *
  * @author aluno
@@ -42,11 +46,13 @@ public class Usuario {
         return senha;
     }
 
-    public void setSenha(String senha) {
+    public void setSenha(String senha) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         if(senha == null){
             throw new IllegalArgumentException("Senha não pode ser nula.");
         } else {
-            this.senha = senha;
+            String aux = Integer.toString(getId()) + senha;
+            String hash = Hash.stringToHash(aux, "SHA-256");
+            this.senha = hash;
         }
     }
     

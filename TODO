@@ -1,3 +1,1 @@
-Criar um arquivo SQL no modelo de nome sgcm_[prontuário] para implantação do banco
-
-Colocar credenciais do banco como configuração no arquivo src/java/framework/config/app-config.xml
+Atualizar BD para novo formato da classe Usuario e TipoUsuario
