@@ -6,3 +6,4 @@
 
 # ignorar todos os arquivos no diretório build/
 build/
+/dist/
