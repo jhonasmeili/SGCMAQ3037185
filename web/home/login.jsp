@@ -12,6 +12,25 @@
         <title>Login</title>
     </head>
     <body>
-        <h1>Login</h1>
+        <%
+            String id = "";
+            Cookie[] cookies = request.getCookies();
+            if(cookies != null){
+                for(Cookie cookie : cookies){
+                    if(cookie.getName().equals("id")){
+                        id = cookie.getValue();
+                    }
+                }
+            }
+        %>
+        <form action="/sgcmaq3037185/home?task=login" method="post">
+            <h1>Login</h1>
+            <label for="id">Id:</label>
+            <input type="number" id="id" name="id" value="<%= id %>" required> <br/>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" value="" required> <br/>
+        
+            <input type="submit" value="Login">
+        </form>
     </body>
 </html>
