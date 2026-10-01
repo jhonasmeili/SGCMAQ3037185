@@ -24,11 +24,12 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
     public void insert(Usuario t) throws Exception {
         Connection connection = DataBaseConnections.getInstance().getConnection();
         
-        String dml = "INSERT INTO usuario (id, nome, senha) values (?, ?, ?)";
+        String dml = "INSERT INTO usuario (id, nome, senha, tipo_usuario_id) values (?, ?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(dml);
         preparedStatement.setInt(1, t.getId());
         preparedStatement.setString(2, t.getNome());
         preparedStatement.setString(3, t.getSenha());
+        preparedStatement.setInt(4, t.getTipoUsuarioId());
         
         if(AppConfig.getInstance().getConfig("settings", "verbose"). equals("true")){
             System.out.println(preparedStatement);
@@ -44,11 +45,12 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
     public void update(Usuario t) throws Exception {
         Connection connection = DataBaseConnections.getInstance().getConnection();
         
-        String dml = "UPDATE usuario  SET nome = ?, senha = ? WHERE id = ?";
+        String dml = "UPDATE usuario  SET nome = ?, senha = ?,  tipo_usuario_id = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(dml);
-        preparedStatement.setInt(3, t.getId());
+        preparedStatement.setInt(4, t.getId());
         preparedStatement.setString(1, t.getNome());
         preparedStatement.setString(2, t.getSenha());
+        preparedStatement.setInt(3, t.getTipoUsuarioId());
         
         if(AppConfig.getInstance().getConfig("settings", "verbose"). equals("true")){
             System.out.println(preparedStatement);
@@ -96,7 +98,8 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
         if(status == true){
             resultado = new Usuario((int) resultSet.getObject(1));
             resultado.setNome((String)resultSet.getObject(2));
-            resultado.setSenha((String)resultSet.getObject(3));
+            resultado.setSenhaHash((String)resultSet.getObject(3));
+            resultado.setTipoUsuarioId((int)resultSet.getObject(4));
         }
        
         
@@ -121,7 +124,8 @@ public class UsuarioDAO extends DataAccessObject<Usuario>{
         while( resultSet.next() ) {
             Usuario usuario = new Usuario((int)resultSet.getObject(1));
             usuario.setNome((String)resultSet.getObject(2));
-            usuario.setSenha((String)resultSet.getObject(3));
+            usuario.setSenhaHash((String)resultSet.getObject(3));
+            usuario.setTipoUsuarioId((int)resultSet.getObject(4));
             
             resultado.add(usuario);
         }

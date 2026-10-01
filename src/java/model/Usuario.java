@@ -17,6 +17,7 @@ public class Usuario {
     private int id;
     private String nome;
     private String senha;
+    private int tipoUsuarioId;
     
     public Usuario(int id){
         setId(id);
@@ -56,9 +57,29 @@ public class Usuario {
         }
     }
     
+    public void setSenhaHash(String senha) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        if(senha == null){
+            throw new IllegalArgumentException("Senha não pode ser nula.");
+        } else {
+            this.senha = senha;
+        }
+    }
+
+    public int getTipoUsuarioId() {
+        return tipoUsuarioId;
+    }
+
+    public void setTipoUsuarioId(int tipoUsuarioId) {
+        if(id < 0){
+            throw new IllegalArgumentException("TipoUsuariod não pode ser menor que 0.");
+        } else {
+            this.tipoUsuarioId = tipoUsuarioId;
+        }
+    }
+    
     @Override
     public String toString(){
-        return "(" + getId() + ", " + getNome() + ", " + getSenha() + ")";
+        return "(" + getId() + ", " + getNome() + ", " + getSenha() + "," + getTipoUsuarioId() + ")";
     }
     
 }

@@ -33,6 +33,8 @@
             <input type="text" id="nome" name="nome" value="<%= us != null ? us.getNome(): ""%>"> <br/>
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" value="<%= us != null ? us.getSenha(): ""%>" required <%= us != null ? "readonly" : ""%>> <br/>
+            <label for="tipo_usuario_id">Id:</label>
+            <input type="number" id="tipo_usuario_id" name="tipo_usuario_id" value="<%= us != null ? us.getTipoUsuarioId(): ""%>" required <%= us != null ? "readonly" : ""%>> <br/>
             
             <input type="submit" value="Salvar">
         </form>

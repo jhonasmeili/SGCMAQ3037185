@@ -68,5 +68,10 @@ public class TipoUsuario {
         }
     }
     
+    @Override
+    public String toString(){
+        return "(" + getId() + ", " + getModuloAdministrativo()+ ", " + getModuloAgendamento()+ "," + getModuloAtendimento()+ ")";
+    }
+    
     
 }

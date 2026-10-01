@@ -9,8 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Usuario;
-import model.UsuarioDAO;
+import model.*;
 import framework.log.ExceptionLogTrack;
 import java.sql.SQLException;
 
@@ -29,6 +28,9 @@ public class FrontController extends HttpServlet {
             switch (task) {
                 case "usuario": 
                     doGetUsuario(req, resp);
+                    break;
+                case "tipousuario":
+                    doGetTipoUsuario(req, resp);
                     break;
                 case null:
                 default:
@@ -49,6 +51,9 @@ public class FrontController extends HttpServlet {
             switch (task) {
                 case "usuario": 
                     doPostUsuario(req, resp);
+                    break;
+                case "tipousuario":
+                    doPostTipoUsuario(req, resp);
                     break;
                 case null:
                 default:
@@ -87,10 +92,16 @@ public class FrontController extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String nome = req.getParameter("nome");
         String senha = req.getParameter("senha");
+        int tipoUsuarioId =  Integer.parseInt(req.getParameter("tipo_usuario_id"));
         
         Usuario us = new Usuario(id);
         us.setNome(nome);
-        us.setSenha(senha);
+        if(senha.length() > 20){
+            us.setSenhaHash(senha);
+        } else {
+            us.setSenha(senha);
+        }
+        us.setTipoUsuarioId(tipoUsuarioId);
         
         UsuarioDAO dao = new UsuarioDAO();
         
@@ -98,6 +109,44 @@ public class FrontController extends HttpServlet {
         if(action.equals("update")) dao.update(us);
         
         req.getRequestDispatcher("/home/app/adm/usuario.jsp").forward(req, resp);
+    }
+    
+    private void doGetTipoUsuario(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String action = req.getParameter("action");
+        
+        if((action != null) && (action.equals("delete"))){
+            int id = Integer.parseInt(req.getParameter("id"));
+            TipoUsuario tp = new TipoUsuario(id);
+            TipoUsuarioDAO dao = new TipoUsuarioDAO();
+            
+            dao.delete(tp);
+        }
+        
+        req.getRequestDispatcher("/home/app/adm/tipousuario.jsp").forward(req, resp);
+    }
+    
+    private void doPostTipoUsuario(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        
+        String action = req.getParameter("action"); // new  || update
+        
+        int id = Integer.parseInt(req.getParameter("id"));
+        String adm = req.getParameter("adm");
+        if(adm == null) adm = "N";
+        String agd = req.getParameter("agd");
+        if(agd == null) agd = "N";
+        String atd = req.getParameter("atd");
+        if(atd == null) atd = "N";
+        
+        TipoUsuario tp = new TipoUsuario(id);
+        tp.setModuloAdministrativo(adm);
+        tp.setModuloAgendamento(agd);
+        tp.setModuloAtendimento(atd);
+        TipoUsuarioDAO dao = new TipoUsuarioDAO();
+        
+        if(action.equals("new")) dao.insert(tp);
+        if(action.equals("update")) dao.update(tp);
+        
+        req.getRequestDispatcher("/home/app/adm/tipousuario.jsp").forward(req, resp);
     }
     
 }

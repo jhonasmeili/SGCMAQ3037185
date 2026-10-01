@@ -23,6 +23,7 @@
             <tr>
                 <th>Id</th>
                 <th>Nome</th>
+                <th>TipoUsuarioId</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -31,6 +32,7 @@
             <tr>
                 <td><%=us.getId()%></td>
                 <td><%=us.getNome()%></td>
+                <td><%=us.getTipoUsuarioId()%></td>
                 <td><a href="/sgcmaq3037185/home/app/adm/usuario_form.jsp?id=<%=us.getId()%>">Alterar</a></td>
                 <td><a href="/sgcmaq3037185/home?task=usuario&action=delete&id=<%=us.getId()%>" onclick="return confirm('Deseja realmente excluir Usuário <%= us.getNome()%>, Id: <%=us.getId()%>?')">Excluir</a></td>
             </tr>
