@@ -12,6 +12,11 @@
         <title>Login</title>
     </head>
     <body>
+        <% if (request.getAttribute("msg") != null){ %>
+        <script>
+            alert(" <%= (String) request.getAttribute("msg") %>");
+        </script>
+        <% } %>
         <%
             String id = "";
             Cookie[] cookies = request.getCookies();

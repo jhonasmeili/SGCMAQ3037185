@@ -14,6 +14,7 @@
         <title>Cadastro de Tipo de Usuário</title>
     </head>
     <body>
+        <%@include file="/home/app/modulos.jsp"%>
         <%String action = "new";
         TipoUsuario tp = null;
         String id = request.getParameter("id");

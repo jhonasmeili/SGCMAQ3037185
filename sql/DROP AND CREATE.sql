@@ -19,3 +19,7 @@ CREATE TABLE usuario(
     PRIMARY KEY (id),
     FOREIGN KEY (tipo_usuario_id) REFERENCES tipo_usuario (id)
 );
+
+INSERT INTO tipo_usuario VALUES (1, 'S', 'S', 'S');
+
+INSERT INTO usuario VALUES (1, 'root', '5823e3e72a88ee7a95b8526cb700d559eae288140d39fdc6e330894da791d3df', 1);

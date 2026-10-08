@@ -71,7 +71,7 @@ public class Usuario {
 
     public void setTipoUsuarioId(int tipoUsuarioId) {
         if(id < 0){
-            throw new IllegalArgumentException("TipoUsuariod não pode ser menor que 0.");
+            throw new IllegalArgumentException("TipoUsuarioId não pode ser menor que 0.");
         } else {
             this.tipoUsuarioId = tipoUsuarioId;
         }

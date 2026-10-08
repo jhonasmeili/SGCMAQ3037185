@@ -15,6 +15,7 @@
         <title>Usuários</title>
     </head>
     <body>
+        <%@include file="/home/app/modulos.jsp"%>
         <%
             ArrayList<Usuario> lista = new UsuarioDAO().getAll();    
         %>
