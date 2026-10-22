@@ -38,7 +38,7 @@
             <input type="number" id="tipo_usuario_id" name="tipo_usuario_id" value="<%= us != null ? us.getTipoUsuarioId(): ""%>" required <%= us != null ? "readonly" : ""%>> <br/>
             <label for="nascimento">Nascimento:</label>
             <input type="date" id="nascimento" name="nascimento" value="<%= (us != null)  && (us.getNascimento()!= null) ? us.getNascimento(): ""%>"> <br/>
-            <label for="logadouro">Logadouro:</label>
+            <label for="logadouro">Logradouro:</label>
             <input type="text" id="logadouro" name="logadouro" value="<%= (us != null)  && (us.getLogadouro()!= null) ? us.getLogadouro(): ""%>"> <br/>
             <label for="numero">Numero:</label>
             <input type="text" id="numero" name="numero" value="<%= (us != null)  && (us.getNumero()!= null) ? us.getNumero(): ""%>"> <br/>
@@ -52,9 +52,53 @@
             <input type="text" id="uf" name="uf" value="<%= (us != null)  && (us.getUf() != null) ? us.getUf(): ""%>"> <br/>
             <label for="cep">CEP:</label>
             <input type="text" id="cep" name="cep" value="<%= (us != null)  && (us.getCep()!= null) ? us.getCep(): ""%>"> <br/>
+            <input type="button" value="Buscar Endereço" name="buscar_endereco" onclick="buscar_endereco_cep()"/>
             
             
             <input type="submit" value="Salvar">
         </form>
+        
+        <script>
+            
+            function buscar_endereco_cep() {
+                
+                const xhr = new XMLHttpRequest();
+                
+                const regexCEP = /^\d{5}-\d{3}$/;
+                
+                var cep = document.getElementById("cep").value;
+                
+                if( cep !== "" ) {                    
+                    if( regexCEP.test(cep) == true )  {
+                        
+                        var url = "https://viacep.com.br/ws/" + cep.replace('-', '') + "/json/";
+
+                        xhr.open( "GET", url );
+                        xhr.send();
+
+                        xhr.onreadystatechange = function() {
+                            
+                            if ( xhr.readyState === 4 && xhr.status === 200 ) {
+
+                                var endereco_json = JSON.parse(xhr.responseText);
+                                
+                                document.getElementById("logadouro").value = endereco_json["logradouro"];
+                                document.getElementById("bairro").value = endereco_json["bairro"];
+                                document.getElementById("cidade").value = endereco_json["localidade"];
+                                document.getElementById("uf").value = endereco_json["uf"];
+                                document.getElementById("estado").value = endereco_json["estado"];
+
+                            }
+                        };
+                        
+                    } else {
+                        alert("CEP deve estar no formato DDDDD-DDD");
+                        document.getElementById("cep").value = "";
+                    }                    
+                }
+                
+            }
+            
+        </script>
     </body>
 </html>
