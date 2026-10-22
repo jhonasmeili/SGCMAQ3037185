@@ -18,6 +18,14 @@ public class Usuario {
     private String nome;
     private String senha;
     private int tipoUsuarioId;
+    private String nascimento;
+    private String logadouro;
+    private String numero;
+    private String bairro;
+    private String cidade;
+    private String estado;
+    private String uf;
+    private String cep;
     
     public Usuario(int id){
         setId(id);
@@ -75,6 +83,70 @@ public class Usuario {
         } else {
             this.tipoUsuarioId = tipoUsuarioId;
         }
+    }
+
+    public String getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(String nascimento) {
+        this.nascimento = nascimento;
+    }
+
+    public String getLogadouro() {
+        return logadouro;
+    }
+
+    public void setLogadouro(String logadouro) {
+        this.logadouro = logadouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
     
     @Override

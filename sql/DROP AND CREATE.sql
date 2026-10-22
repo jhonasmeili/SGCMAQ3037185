@@ -16,10 +16,18 @@ CREATE TABLE usuario(
     nome varchar(50),
     senha varchar(100) NOT NULL,
     tipo_usuario_id int NOT NULL,
+    nascimento date,
+    logadouro varchar(100),
+    numero varchar(20),
+    bairro varchar(50),
+    cidade varchar(50),
+    estado varchar(30),
+    uf varchar(2),
+    cep varchar(9),
     PRIMARY KEY (id),
     FOREIGN KEY (tipo_usuario_id) REFERENCES tipo_usuario (id)
 );
 
 INSERT INTO tipo_usuario VALUES (1, 'S', 'S', 'S');
 
-INSERT INTO usuario VALUES (1, 'root', '5823e3e72a88ee7a95b8526cb700d559eae288140d39fdc6e330894da791d3df', 1);
+INSERT INTO usuario (id, nome, senha, tipo_usuario_id) VALUES (1, 'root', '5823e3e72a88ee7a95b8526cb700d559eae288140d39fdc6e330894da791d3df', 1);

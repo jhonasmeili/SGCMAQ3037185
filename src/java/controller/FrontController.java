@@ -104,6 +104,9 @@ public class FrontController extends HttpServlet {
         
         int id = Integer.parseInt(req.getParameter("id"));
         String nome = req.getParameter("nome");
+        if(nome.isBlank()){
+            nome = null;
+        }
         String senha = req.getParameter("senha");
         int tipoUsuarioId =  Integer.parseInt(req.getParameter("tipo_usuario_id"));
         
@@ -117,10 +120,52 @@ public class FrontController extends HttpServlet {
         us.setTipoUsuarioId(tipoUsuarioId);
         
         UsuarioDAO dao = new UsuarioDAO();
+        String nascimento = req.getParameter("nascimento");
+        if(nascimento.isBlank()){
+            nascimento = null;
+        }
+        String logadouro = req.getParameter("logadouro");
+        if(logadouro.isBlank()){
+            logadouro = null;
+        }
+        String numero = req.getParameter("numero");
+        if(numero.isBlank()){
+            numero = null;
+        }
+        String bairro = req.getParameter("bairro");
+        if(bairro.isBlank()){
+            bairro = null;
+        }
+        String cidade = req.getParameter("cidade");
+        if(cidade.isBlank()){
+            cidade = null;
+        }
+        String estado = req.getParameter("estado");
+        if(estado.isBlank()){
+            estado = null;
+        }
+        String uf = req.getParameter("uf");
+        if(uf.isBlank()){
+            uf = null;
+        }
+        String cep = req.getParameter("cep");
+        if(cep.isBlank()){
+            cep = null;
+        }
+        
+        us.setNascimento(nascimento);
+        us.setLogadouro(logadouro);
+        us.setNumero(numero);
+        us.setBairro(bairro);
+        us.setCidade(cidade);
+        us.setEstado(estado);
+        us.setUf(uf);
+        us.setCep(cep);
         
         if(action.equals("new")) dao.insert(us);
         if(action.equals("update")) dao.update(us);
         
+        System.out.println(id + " " + nome + " " + uf);
         req.getRequestDispatcher("/home/app/adm/usuario.jsp").forward(req, resp);
     }
     
