@@ -25,6 +25,7 @@
     <%if ((tps != null) && (tps.getModuloAdministrativo().equals("S"))) {%>
     <li><a href="/sgcmaq3037185/home/app/adm/usuario.jsp">Usuários</a></li>
     <li><a href="/sgcmaq3037185/home/app/adm/tipousuario.jsp">Tipos de Usuário</a></li>
+    <li><a href="/sgcmaq3037185/home/app/adm/convenio.jsp">Convênios</a></li>
     <% } %>
     <li><a href="/sgcmaq3037185/home?task=logout"><%= nomeUsuarioSessao%> -- Logout</a></li>
 </menu>
